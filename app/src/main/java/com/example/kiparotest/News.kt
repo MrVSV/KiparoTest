@@ -7,8 +7,4 @@ data class News(
     val date: String,
     val keywords: List<String>,
     val visible: Boolean
-){
-    fun fromDto(dto: NewsDto) = News(
-        id, title, description, date, keywords, visible
-    )
-}
+)

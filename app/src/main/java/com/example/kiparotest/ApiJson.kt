@@ -6,7 +6,7 @@ import okhttp3.Request
 import java.io.IOException
 
 
-class Api {
+class ApiJson {
 
     private val client = OkHttpClient()
     private val moshi = Moshi.Builder().build()

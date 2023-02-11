@@ -1,4 +1,5 @@
 package com.example.kiparotest
+
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
