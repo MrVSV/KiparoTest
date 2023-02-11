@@ -8,7 +8,7 @@ fun List<NewsDto>.toListNews(): List<News> =
 
 fun NewsDto.toNews() = News(
     id = id,
-    title = title,
+    title = title?:"Title is missing",
     description = description,
     date = date,
     keywords = keywords,
