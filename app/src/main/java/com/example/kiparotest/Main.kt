@@ -1,7 +1,8 @@
 package com.example.kiparotest
 
 private val apiJson = ApiJson()
-private val repository = Repository(apiJson)
+private val apiXml = ApiXml()
+private val repository = Repository(apiJson, apiXml)
 
 fun main() {
 
@@ -11,7 +12,10 @@ fun main() {
         sourceId = readLine()?.toIntOrNull() ?: return
         when (sourceId) {
             in 1..2 -> selectSource(sourceId)
-            0 -> break
+            0 -> {
+                println("Good Bay")
+                break
+            }
             else -> println("Wrong command")
         }
     }
@@ -19,14 +23,23 @@ fun main() {
 
 fun selectSource(sourceId: Int) {
     val news: List<News>
-    if (sourceId == 1) {
-        println("Downloading Json")
-        news = repository.getNewsFromJson()!!
-        println("Enter 1 to see all news\nEnter 2 to select news by keywords")
-        val viewTypeId: Int = readLine()?.toIntOrNull() ?: return
-        selectViewType(viewTypeId, news)
-    } else {
-        println("Wrong source, try again")
+    when(sourceId) {
+        1 -> {
+            println("Downloading Json")
+            news = repository.getNewsFromJson()!!
+            println("Enter 1 to see all news\nEnter 2 to select news by keywords")
+            val viewTypeId: Int = readLine()?.toIntOrNull() ?: return
+            selectViewType(viewTypeId, news)
+        }
+        2 -> {println("Downloading XML")
+            news = repository.getNewsFromXml()
+            println("Enter 1 to see all news\nEnter 2 to select news by keywords")
+            val viewTypeId: Int = readLine()?.toIntOrNull() ?: return
+            selectViewType(viewTypeId, news)
+        }
+        else -> {
+            println("Wrong source, try again")
+        }
     }
 }
 
@@ -64,6 +77,6 @@ fun selectViewType(viewTypeId: Int, news: List<News>) {
     }
 
     fun showNewsItem(item: News) {
-        println("${item.date.dateFormat(item.date)}\n${item.title}\n${item.description}")
+        println("${dateFormat(item.date)}\n${item.title}\n${item.description}")
         println()
     }
